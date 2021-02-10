@@ -1,0 +1,33 @@
+html {
+    height: 100%;
+}
+#submit{
+    margin-bottom: 1%;
+    margin-right: 3%;
+}
+#form{
+    text-align: center;
+    width: 50%;
+    margin-top: 10%;
+    border: 1px solid black;
+    border-radius: 1%;
+    padding-bottom: 1%;
+}
+#login{
+    margin-top: 3%;
+
+}
+input{
+    width: 100%;
+}
+#remove{
+    margin-top: 5%;
+    text-align: center;
+}
+.h{
+    background-color: blue;
+}
+#item{
+    height: 20em;
+    width: 20em;
+}

@@ -1,0 +1,31 @@
+.jumbotron {
+    background-color:rgb(72, 79, 79);
+    color: aliceblue;
+    margin-top: 3%;
+    text-align: center;
+  }
+  #all {
+    background-color: black;
+    color: aliceblue;
+  }
+  footer {
+    background: rgb(72, 79, 79);
+    margin-top: 25px;
+    padding: 10px;
+    color: aliceblue;
+    text-align: right;
+  }
+  .price {
+    text-align: right;
+  }
+  span{
+      padding-top: 2%;
+  }
+  #img {
+    padding-top: 10%;
+    height: 700px;
+  }
+  #sew{
+    height: 2em;
+    width: 2em;
+  }
