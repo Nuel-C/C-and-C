@@ -10,12 +10,32 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 
+var orderSchema = new mongoose.Schema({
+    neck: String, 
+    shoulder: String, 
+    chest: String, 
+    waist: String, 
+    hips: String, 
+    arm: String, 
+    inseam: String,
+    phone: Number,
+    name: String
+});
+var Order = mongoose.model('Order', orderSchema);
+
 var clothingSchema = new mongoose.Schema({
     comment: String,
     image: String,
-    price: String
+    price: String,
+    orders: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: Order
+        }
+    ]
 });
 var Clothing = mongoose.model('Clothing', clothingSchema);
+
 var login = {
     username: 'Dio', 
     password: 'Speedwagon'
@@ -47,6 +67,53 @@ app.post('/post', function(req, res){
     }
 });
 
+app.post('/order/:id', function(req, res){
+    var newNeck = req.body.neck
+    var newShoulder = req.body.shoulder
+    var newChest = req.body.chest
+    var newWaist = req.body.waist
+    var newHips = req.body.hips
+    var newArm = req.body.arm
+    var newInseam = req.body.inseam
+    var newPhone = req.body.phone
+    var newName = req.body.name
+    var newOrder = {neck: newNeck, shoulder: newShoulder, chest: newChest, waist: newWaist, hips: newHips, arm: newArm, inseam: newInseam, phone: newPhone, name: newName};
+
+    Order.create(newOrder, function(err, order){
+        if(err){
+            console.log(err);
+        }else{
+            Clothing.findById(req.params.id, function(err, clothings){
+                if(err){
+
+                }else{
+                    clothings.orders.push(order);
+                    clothings.save(function(err, clothing){
+                        if(err){
+                            console.log(err);
+                        }else{
+                            console.log(clothing);
+                        }
+                    });
+                    console.log(clothings);
+                }
+            });
+        }
+    });
+
+    res.redirect('/');
+});
+
+app.get('/show/:id', function(req, res){
+    Clothing.findById(req.params.id, function(err, clothings){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('show', {clothings: clothings});
+        }
+    });
+});
+
 app.post('/remove/:id', function(req, res){
     Clothing.findByIdAndDelete(req.params.id, function(err, clothings){
         if(err){
@@ -60,6 +127,16 @@ app.post('/remove/:id', function(req, res){
 app.get('/admin', function(req, res){
 
     res.render('admin');
+});
+
+app.get('/orders', function(req, res){
+    Clothing.find().populate('orders').exec(function(err, clothings){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('orders', {clothings: clothings});
+        }
+    });
 });
 
 app.post('/add', function(req, res){

@@ -42,43 +42,11 @@
 
 <div class="container">
 <div class="row r">
-    
-    <div class="col-lg-6 col-sm-6 dd">
-        <div class="row">
-            <img src="img/img1.jpg" class="col-md-12 col-xs-12" id="img"/>
-            <span class="col col-md-9 col-xs-9 comment"><h4>My exquisite design flaw will blow your mind</h4></span>
-            <span class="col col-md-3 col-xs-3 price"><h4>#2,200</h4></span>
-        </div>
-      </div>
-
-      <div class="col-lg-6 col-sm-6 dd">
-        <div class="row">
-            <img src="img/img2.jpg" class="col-md-12 col-xs-12" id="img"/>
-            <span class="col col-md-9 col-xs-9 comment"><h4>My exquisite design flaw will blow your mind</h4></span>
-            <span class="col col-md-3 col-xs-3 price"><h4>#2,200</h4></span>
-        </div>
-      </div>
-
-      <div class="col-lg-6 col-sm-6 dd">
-        <div class="row">
-            <img src="img/img3.jpg" class="col-md-12 col-xs-12" id="img"/>
-            <span class="col col-md-9 col-xs-9 comment"><h4>My exquisite design flaw will blow your mind</h4></span>
-            <span class="col col-md-3 col-xs-3 price"><h4>#2,200</h4></span>
-        </div>
-      </div>
-
-      <div class="col-lg-6 col-sm-6 dd">
-        <div class="row">
-            <img src="img/img4.jpg" class="col-md-12 col-xs-12" id="img"/>
-            <span class="col col-md-9 col-xs-9 comment"><h4>My exquisite design flaw will blow your mind</h4></span>
-            <span class="col col-md-3 col-xs-3 price"><h4>#2,200</h4></span>
-        </div>
-      </div>
 
       <% for(var i = 0; i < clothings.length; i++){ %> 
         <div class="col-lg-6 col-sm-6 dd">
             <div class="row">
-                <img src="<%= clothings[i].image %>" class="col-md-12 col-xs-12" id="img"/>
+                <a href="/show/<%= clothings[i]._id%>"><img src="<%= clothings[i].image %>" class="col-md-12 col-xs-12" id="img"/></a>
                 <span class="col col-md-9 col-xs-9 comment"><%= clothings[i].comment %></span>
                 <span class="col col-md-3 col-xs-3 price"><%= clothings[i].price %></span>
             </div>

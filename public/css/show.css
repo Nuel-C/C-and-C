@@ -1,0 +1,31 @@
+body{
+    background-color: black;
+    color: aliceblue;
+}
+img{
+    padding-top: 5%;
+    height: 60%;
+    width: 50%;
+}
+.container{
+    text-align: center;
+    margin-top: 5%;
+}
+input{
+    width: 50%;
+}
+button{
+    width: 50%;
+}
+#item{
+    border: 1px solid white;
+    border-radius: 10%;
+}
+#order{
+    margin-top: 5%;
+    border: 1px solid white;
+    border-radius: 10%;
+}
+h2{
+    padding-top: 5%;
+}

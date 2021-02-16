@@ -37,6 +37,12 @@
                                 <img src="<%= clothings[i].image %>" id="item"/>
                             </div>
                             <div class="form-group">
+                                <%= clothings[i].comment %>
+                            </div>
+                            <div class="form-group">
+                                <%= clothings[i].price %>
+                            </div>
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primay h">Delete</button>
                             </div>
                         </form>
@@ -44,6 +50,7 @@
                     </div>
                 </div>
             <% }; %>
+            <a href="/orders">Orders</a>
         </div>
 </body>
 </html>

@@ -1,0 +1,12 @@
+#orders{
+    text-align: center;
+    border: 1px solid black;
+}
+#order{
+    border: 1px solid black;
+}
+#img{
+    padding-top: 2%;
+    height: 60%;
+    width: 50%;
+}

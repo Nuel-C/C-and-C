@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/orders.css" />
+  <link rel="icon" type="icon" href="/img/seww.ico" />
+  <script src="/js/Jquery.js"></script>
+  <script src="/css/bootstrap/js/bootstrap.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div id="orders">
+      <% var i = 0; %>
+      <% while( i < clothings.length){ %>
+      <img src='<%= clothings[i].image%>' id="img"/>
+      <% var orders = clothings[i].orders; %>
+      <% for(var e = 0; e < orders.length; e++){ %>
+        <div id="order">
+          <span>Neck:<%= orders[e].neck%></span><br>
+          <span>Shoulder:<%= orders[e].shoulder%></span><br>
+          <span>Chest:<%= orders[e].chest%></span><br>
+          <span>Waist:<%= orders[e].waist%></span><br>
+          <span>Hips:<%= orders[e].hips%></span><br>
+          <span>Arm:<%= orders[e].arm%></span><br>
+          <span>Inseam:<%= orders[e].inseam%></span><br>
+          <span>Name:<%= orders[e].name%></span><br>
+          <span>Phone:<%= orders[e].phone%></span><br>
+        </div>
+
+      <% } %>
+      <% var i = i + 1; %>
+      <% } %>
+    </div>
+  </div>
+  
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/show.css" />
+    <link rel="icon" type="icon" href="/img/seww.ico" />
+    <script src="/js/Jquery.js"></script>
+    <script src="/css/bootstrap/js/bootstrap.js"></script>
+    <title>Clothing</title>
+</head>
+<body>
+    <div class="container">
+        <div id="item">
+            <div class="form">
+                <div class="form-group">
+                    <img src="<%= clothings.image %>" />
+                </div>
+                <div class="form-group">
+                    <p id="price"><%= clothings.price%></p>
+                </div>
+                <div class="form-group">
+                    <p id="price"><%= clothings.comment%></p>
+                </div>
+            </div>
+        </div>
+        <div id="order">
+            <h2>Place Your Order</h2>
+        <form action="/order/<%= clothings._id %>" method="POST">
+            <div class="form-group">
+                <input type="text" name="neck" placeholder="neck (inches)" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="shoulder" placeholder="shoulder (inches)" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="chest" placeholder="chest (inches)" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="waist" placeholder="waist (inches)" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="hips" placeholder="hips (inches)" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="arm" placeholder="arm (inches)" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="inseam" placeholder="inseam (inches)" required/>
+            </div>
+            <div class="form-group">
+                <input type="number" name="phone" placeholder="Phone Number" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Full Name" required/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success">Order</button>
+            </div>
+        </form>
+        </div>     
+    </div>
+</body>
+</html>
