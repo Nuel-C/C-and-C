@@ -27,6 +27,10 @@
         </div>
         </div>
 
+        <script>
+            document.getElementById('submit').addEventListener('click', function(){ alert('Clothing created successfully'); });
+        </script>
+
         <div class="container" id="remove">
             <h3>Remove Item</h3><br>
             <% for(var i = 0; i < clothings.length; i++){ %>
@@ -43,7 +47,7 @@
                                 <%= clothings[i].price %>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primay h">Delete</button>
+                                <button type="submit" class="btn btn-primay h" id="btnn">Delete</button>
                             </div>
                         </form>
                         
@@ -52,5 +56,8 @@
             <% }; %>
             <a href="/orders">Orders</a>
         </div>
+        <script>
+            document.getElementById('btnn').addEventListener('click', function(){ alert('deleted successfully'); });
+        </script>
 </body>
 </html>

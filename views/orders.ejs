@@ -20,15 +20,41 @@
       <% var orders = clothings[i].orders; %>
       <% for(var e = 0; e < orders.length; e++){ %>
         <div id="order">
-          <span>Neck:<%= orders[e].neck%></span><br>
-          <span>Shoulder:<%= orders[e].shoulder%></span><br>
-          <span>Chest:<%= orders[e].chest%></span><br>
-          <span>Waist:<%= orders[e].waist%></span><br>
-          <span>Hips:<%= orders[e].hips%></span><br>
-          <span>Arm:<%= orders[e].arm%></span><br>
-          <span>Inseam:<%= orders[e].inseam%></span><br>
-          <span>Name:<%= orders[e].name%></span><br>
-          <span>Phone:<%= orders[e].phone%></span><br>
+          <form action="/delete/<%=orders[e]._id%>" method="POST">
+            <div class="form-group">
+
+            </div>
+            <div class="form-group">
+              Neck:<%= orders[e].neck%>
+            </div>
+            <div class="form-group">
+              Shoulder:<%= orders[e].shoulder%>
+            </div>
+            <div class="form-group">
+              Chest:<%= orders[e].chest%>
+            </div>
+            <div class="form-group">
+              Waist:<%= orders[e].waist%>
+            </div>
+            <div class="form-group">
+              Hips:<%= orders[e].hips%>
+            </div>
+            <div class="form-group">
+              Arm:<%= orders[e].arm%>
+            </div>
+            <div class="form-group">
+              Inseam:<%= orders[e].inseam%>
+            </div>
+            <div class="form-group">
+              Name:<%= orders[e].name%>
+            </div>
+            <div class="form-group">
+              Phone:<%= orders[e].phone%>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-danger" id="btn">Delete</button>
+            </div>
+          </form>
         </div>
 
       <% } %>
@@ -36,6 +62,8 @@
       <% } %>
     </div>
   </div>
-  
+  <script>
+    document.getElementById('btn').addEventListener('click', function(){ alert('deleted successfully'); });
+  </script>
 </body>
 </html>

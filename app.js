@@ -100,7 +100,6 @@ app.post('/order/:id', function(req, res){
             });
         }
     });
-
     res.redirect('/');
 });
 
@@ -115,6 +114,7 @@ app.get('/show/:id', function(req, res){
 });
 
 app.post('/remove/:id', function(req, res){
+    var id = req.params.id;
     Clothing.findByIdAndDelete(req.params.id, function(err, clothings){
         if(err){
             console.log('error');
@@ -154,6 +154,17 @@ app.post('/add', function(req, res){
     });
 
     res.redirect('/');
+});
+
+app.post('/delete/:id', function(req, res){
+    var id = req.params.id;
+    Order.deleteOne({_id: id}, function(err, order){
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect('/orders');
+        }
+    });
 });
 
 app.get('*', function(req, res){

@@ -27,7 +27,7 @@
         </div>
         <div id="order">
             <h2>Place Your Order</h2>
-        <form action="/order/<%= clothings._id %>" method="POST">
+        <form action="/order/<%= clothings._id %>" method="POST" id="frm">
             <div class="form-group">
                 <input type="text" name="neck" placeholder="neck (inches)" required/>
             </div>
@@ -50,16 +50,19 @@
                 <input type="text" name="inseam" placeholder="inseam (inches)" required/>
             </div>
             <div class="form-group">
-                <input type="number" name="phone" placeholder="Phone Number" required/>
+                <input type="text" name="phone" placeholder="Phone Number" required/>
             </div>
             <div class="form-group">
                 <input type="text" name="name" placeholder="Full Name" required/>
             </div>
             <div class="form-group">
-                <button class="btn btn-success">Order</button>
+                <button class="btn btn-success" id="btn">Order</button>
             </div>
         </form>
         </div>     
     </div>
+    <script>
+        document.getElementById('btn').addEventListener('click', function(){ alert('Order created Successfully'); })
+    </script>
 </body>
 </html>
