@@ -14,11 +14,11 @@
 <body>
   <div class="container">
     <div id="orders">
-      <% var i = 0; %>
-      <% while( i < clothings.length){ %>
-      <img src='<%= clothings[i].image%>' id="img"/>
-      <% var orders = clothings[i].orders; %>
       <% for(var e = 0; e < orders.length; e++){ %>
+        <% var clothings = orders[e].clothings; %>
+        <% for(var i = 0; i < clothings.length; i++){ %>
+          <img src="<%= clothings[i].image %>" id="img"/>
+        <% }; %>
         <div id="order">
           <form action="/delete/<%=orders[e]._id%>" method="POST">
             <div class="form-group">
@@ -57,8 +57,6 @@
           </form>
         </div>
 
-      <% } %>
-      <% var i = i + 1; %>
       <% } %>
     </div>
   </div>

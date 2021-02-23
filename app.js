@@ -19,7 +19,13 @@ var orderSchema = new mongoose.Schema({
     arm: String, 
     inseam: String,
     phone: Number,
-    name: String
+    name: String,
+    clothings: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Clothing'
+        }
+    ]
 });
 var Order = mongoose.model('Order', orderSchema);
 
@@ -27,12 +33,6 @@ var clothingSchema = new mongoose.Schema({
     comment: String,
     image: String,
     price: String,
-    orders: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: Order
-        }
-    ]
 });
 var Clothing = mongoose.model('Clothing', clothingSchema);
 
@@ -79,7 +79,7 @@ app.post('/order/:id', function(req, res){
     var newName = req.body.name
     var newOrder = {neck: newNeck, shoulder: newShoulder, chest: newChest, waist: newWaist, hips: newHips, arm: newArm, inseam: newInseam, phone: newPhone, name: newName};
 
-    Order.create(newOrder, function(err, order){
+    Order.create(newOrder, function(err, orders){
         if(err){
             console.log(err);
         }else{
@@ -87,12 +87,12 @@ app.post('/order/:id', function(req, res){
                 if(err){
 
                 }else{
-                    clothings.orders.push(order);
-                    clothings.save(function(err, clothing){
+                    orders.clothings.push(clothings);
+                    orders.save(function(err, order){
                         if(err){
                             console.log(err);
                         }else{
-                            console.log(clothing);
+                            console.log(order);
                         }
                     });
                     console.log(clothings);
@@ -119,6 +119,13 @@ app.post('/remove/:id', function(req, res){
         if(err){
             console.log('error');
         }else{
+            Order.deleteMany({clothings}, function(err, orders){
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(orders);
+                }
+            });
             res.redirect('/');
         }
     });
@@ -130,13 +137,23 @@ app.get('/admin', function(req, res){
 });
 
 app.get('/orders', function(req, res){
-    Clothing.find().populate('orders').exec(function(err, clothings){
-        if(err){
-            console.log(err);
-        }else{
-            res.render('orders', {clothings: clothings});
-        }
-    });
+
+    res.render('order');
+});
+
+app.post('/orders', function(req, res){
+    var username = req.body.username;
+    var password = req.body.password;
+    if(password === login.password && username === login.username){
+        Order.find().populate('clothings').exec(function(err, orders){
+            if(err){
+                console.log(err);
+            }else{
+                res.render('orders', {orders: orders});
+            }
+        });
+    }
+
 });
 
 app.post('/add', function(req, res){
