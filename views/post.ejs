@@ -16,8 +16,8 @@
         <div class="col-12">
             <div>
                <h5 class="card-title">Add Product</h5>
-               <form action="/add" method="POST">
-                   Image <input type="text" name="image" placeholder="Image"/><br><br>
+               <form action="/add" method="POST" enctype="multipart/form-data">
+                   Image <input type="file" name="image" placeholder="Image"/><br><br>
                    Comment  <input type="text" name="comment" placeholder="Comment"/><br><br>
                    Price <input type="text" name="price" placeholder="price"/><br><br>
                    <input type="submit" class="btn btn-primary" id="submit"/>

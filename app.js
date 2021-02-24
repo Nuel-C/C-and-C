@@ -4,9 +4,22 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { stringify } = require('querystring');
 const { ESRCH } = require('constants');
+const path = require('path');
+const multer = require('multer');
+const storage = multer.diskStorage({destination: (req, file, cb) =>{cb(null, 'x/img/uploads')}, filename: (req, file, cb) => {console.log(file); cb(null, Date.now() + path.extname(file.originalname));}});
+const fileFilter = (req, file, cb) => {
+    if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/jpg'){
+        cb(null, true);
+    }else{
+        cb(null, false);
+    }
+}
+const upload = multer({storage: storage, fileFilter: fileFilter});
+const fs = require('fs');
+
 
 mongoose.connect('mongodb://localhost/c_and_c');
-app.use(express.static('public'));
+app.use(express.static('x'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 
@@ -116,9 +129,11 @@ app.get('/show/:id', function(req, res){
 app.post('/remove/:id', function(req, res){
     var id = req.params.id;
     Clothing.findByIdAndDelete(req.params.id, function(err, clothings){
+        var clothing = 'x' + clothings.image;
         if(err){
             console.log('error');
         }else{
+            fs.unlinkSync(clothing);
             Order.deleteMany({clothings}, function(err, orders){
                 if(err){
                     console.log(err);
@@ -156,9 +171,10 @@ app.post('/orders', function(req, res){
 
 });
 
-app.post('/add', function(req, res){
+app.post('/add', upload.single('image'), function(req, res){
     var newComment = req.body.comment;
-    var newImage = req.body.image;
+    var newImages = req.file.path.replace(/[\\]/g, '/');
+    var newImage = newImages.replace(/[x]/, '');
     var newPrice = req.body.price;
     var newPost = {comment:newComment, image:newImage, price: newPrice};
 
