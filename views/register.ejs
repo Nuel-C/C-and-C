@@ -8,15 +8,32 @@
     <link rel="icon" type="icon" href="img/seww.ico" />
     <script src="js/Jquery.js"></script>
     <script src="css/bootstrap/js/bootstrap.js"></script>
-    <title>Control Page</title>
+    <title>Register</title>
 </head>
 <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"><img src="img/sew.png" id="sew"/> Claudio & Clothing</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
     <div id="form" class="container">
         <div class="row" id="login">
         <div class="col-12">
             <div>
                <h5 class="card-title">Log In</h5>
-               <form action="/post" method="POST">
+               <form action="/register" method="POST">
                    Username <input type="text" name="username" placeholder="Username"/><br><br>
                    Password  <input type="password" name="password" placeholder="password"/><br><br>
                    <input type="submit" class="btn btn-primary" id="submit"/>

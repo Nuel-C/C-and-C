@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const { stringify } = require('querystring');
 const { ESRCH } = require('constants');
 const path = require('path');
+const passport = require('passport');
+const localStrategy = require('passport-local');
+const passportLocalMongoose = require('passport-local-mongoose');
 const multer = require('multer');
 const storage = multer.diskStorage({destination: (req, file, cb) =>{cb(null, 'x/img/uploads')}, filename: (req, file, cb) => {console.log(file); cb(null, Date.now() + path.extname(file.originalname));}});
 const fileFilter = (req, file, cb) => {
@@ -16,12 +19,25 @@ const fileFilter = (req, file, cb) => {
 }
 const upload = multer({storage: storage, fileFilter: fileFilter});
 const fs = require('fs');
+const User = require('./models/user');
 
 
-mongoose.connect('mongodb://localhost/c_and_c');
+mongoose.connect('mongodb://localhost/c_and_c', {useNewUrlParser: true, useUnifiedTopology: true});
+app.use(require('express-session')({
+    secret: 'damn',
+    resave: false,
+    saveUninitialized: false
+}));
 app.use(express.static('x'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(bodyParser.urlencoded({extended: true}));
+
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 var orderSchema = new mongoose.Schema({
     neck: String, 
@@ -64,10 +80,7 @@ app.get('/', function(req, res){
     });
 });
 
-app.post('/post', function(req, res){
-    var username = req.body.username;
-    var password = req.body.password;
-    if(password === login.password && username === login.username){
+app.get('/post', isLoggedIn, function(req, res){
         Clothing.find({}, function(err, clothings){
             if(err){
                 console.log(err);
@@ -75,9 +88,11 @@ app.post('/post', function(req, res){
                 res.render('post', {clothings: clothings});
             }
         });
-    }else{
-        res.redirect('/admin');
-    }
+});
+
+app.get('/logout', (req, res)=>{
+    req.logout();
+    res.redirect('/');
 });
 
 app.post('/order/:id', function(req, res){
@@ -146,20 +161,25 @@ app.post('/remove/:id', function(req, res){
     });
 });
 
-app.get('/admin', function(req, res){
 
-    res.render('admin');
+app.get('/register', (req,res)=>{
+    res.render('register');
 });
 
-app.get('/orders', function(req, res){
-
-    res.render('order');
+app.post('/register', (req, res)=>{
+    User.register(new User({username: req.body.username}), req.body.password, function(err, user){
+        if(err){
+            console.log(err);
+            return res.render('register');
+        }else{
+            passport.authenticate('local')(req, res, function(){
+                res.redirect('/post');
+            });
+        }
+    });
 });
 
-app.post('/orders', function(req, res){
-    var username = req.body.username;
-    var password = req.body.password;
-    if(password === login.password && username === login.username){
+app.get('/orders', isLoggedIn, function(req, res){
         Order.find().populate('clothings').exec(function(err, orders){
             if(err){
                 console.log(err);
@@ -167,8 +187,6 @@ app.post('/orders', function(req, res){
                 res.render('orders', {orders: orders});
             }
         });
-    }
-
 });
 
 app.post('/add', upload.single('image'), function(req, res){
@@ -200,8 +218,28 @@ app.post('/delete/:id', function(req, res){
     });
 });
 
+app.get('/login', function(req, res){
+    res.render('login');
+});
+
+app.post('/login',passport.authenticate('local', {successRedirect: '/post', failureRedirect: '/login'}), (req, res)=>{
+});
+
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect('/login');
+}
+
 app.get('*', function(req, res){
     res.send('invalid page');
 });
 
-app.listen(3000);
+app.listen(3000, (err)=>{
+    if(err){
+        console.log(err);
+    }else{
+        console.log('server connected');
+    }
+});

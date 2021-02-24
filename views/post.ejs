@@ -11,6 +11,25 @@
     <title>Control Page</title>
 </head>
 <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"><img src="img/sew.png" id="sew"/> Claudio & Clothing</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/orders">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout" id="logout">Logout</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
     <div id="form" class="container">
         <div class="row" id="login">
         <div class="col-12">
@@ -29,6 +48,7 @@
 
         <script>
             document.getElementById('submit').addEventListener('click', function(){ alert('Clothing created successfully'); });
+            document.getElementById('logout').addEventListener('click', function(){ alert('Successfully Logged Out'); });
         </script>
 
         <div class="container" id="remove">
@@ -54,10 +74,9 @@
                     </div>
                 </div>
             <% }; %>
-            <a href="/orders">Orders</a>
         </div>
         <script>
-            document.getElementById('btnn').addEventListener('click', function(){ alert('deleted successfully'); });
+            document.getElementById('btnn').addEventListener('click', function(){ alert('Deleted Successfully'); });
         </script>
 </body>
 </html>
